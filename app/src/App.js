@@ -1,23 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
+import React, {useState} from 'react';
+
 
 function App() {
+  const [hashtags, setHashtags] = useState('')
+
+  const getHashtags = (sentence) => {
+    async function getBackend() {
+      const res = await fetch('http://localhost:5000/gethashtags', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json' ,
+        },
+        body: JSON.stringify(sentence),
+        mode: 'cors'
+      }
+      )
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>UI for IP-Crowd</h1>
+      <input type='text' placeholder='Enter a Sentence' ></input>
+      <p>{hashtags}</p>
     </div>
   );
 }
