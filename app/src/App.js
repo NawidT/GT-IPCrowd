@@ -1,32 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
-import React, {useState} from 'react';
+import React, { createContext, useState } from 'react';
+import Slide from './comps/Slide';
+import Draggable from './comps/Draggable';
 
+export const AppContext = createContext();
 
 function App() {
-  const [hashtags, setHashtags] = useState('')
-
-  const getHashtags = (sentence) => {
-    async function getBackend() {
-      const res = await fetch('http://localhost:5000/gethashtags', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json' ,
-        },
-        body: JSON.stringify(sentence),
-        mode: 'cors'
-      }
-      )
-    }
-  }
+  /**
+   * open
+   * type
+   * return
+   * rate
+   */
+  const [state, setState] = useState("open")
+  const [sentence, setSentence] = useState("")
 
   return (
-    <div className="App">
-      <h1>UI for IP-Crowd</h1>
-      <input type='text' placeholder='Enter a Sentence' ></input>
-      <p>{hashtags}</p>
-    </div>
+    <AppContext.Provider value={[state, setState, sentence, setSentence]}>
+      <div className="App">
+        <Slide />
+        <Draggable />
+      </div>
+    </AppContext.Provider>
   );
 }
 

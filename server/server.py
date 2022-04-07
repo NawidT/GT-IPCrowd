@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 app = Flask(__name__)
 
 import spacy
@@ -28,6 +28,12 @@ def get_hotwords(text):
 
     #Printing out results as output
     return (formatted)
+
+@app.route('/testroute') 
+def test():
+    sentence = request.get_json()
+    print(sentence)
+
 
 @app.route('/gethashtags') 
 def getTags():
